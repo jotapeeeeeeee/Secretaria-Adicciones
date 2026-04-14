@@ -2,10 +2,11 @@ services:
   - type: web
     name: secretaria-adicciones-backend
     env: node
-    region: sa-east-1
+    rootDir: backend
+    region: oregon
     plan: free
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    buildCommand: npm install
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
