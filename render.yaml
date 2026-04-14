@@ -22,7 +22,7 @@ services:
       - key: ADMIN_PASSWORD
         value: Machado1234
       - key: CONTACT_DESTINATION_EMAIL
-        value: jptoftoledo1302@gmail.com
+        value: jptoledo1302@gmail.com
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -30,7 +30,7 @@ services:
       - key: SMTP_SECURE
         value: true
       - key: SMTP_USER
-        value: jptoftoledo1302@gmail.com
+        value: jptoledo1302@gmail.com
       - key: SMTP_PASS
         value: crzlzquympsdajqe
       - key: MAIL_FROM
