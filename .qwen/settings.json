@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell *)",
+      "Bash(dir *)",
+      "Bash(start *)",
+      "Read(C:\\Users\\tomas\\Downloads/**)",
+      "Bash(select-object *)",
+      "Read(C:\\Users\\tomas\\OneDrive\\Desktop\\temp-full.txt/**)"
+    ]
+  },
+  "$version": 3
+}

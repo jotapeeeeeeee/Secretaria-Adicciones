@@ -1,0 +1,1177 @@
+﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="api-base-url" content="http://localhost:4000">
+<title>Secretaría de Políticas Integrales sobre Adicciones – Tucumán</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root{
+  --teal-deep:#0B4F5C;
+  --teal-mid:#2A8F8F;
+  --teal-light:#3ABDBD;
+  --teal-glow:#4DD8D8;
+  --teal-pale:#A8E6E6;
+  --teal-whisper:#E8F7F7;
+  --warm-amber:#C9883A;
+  --warm-sand:#F5EDE0;
+  --bone:#FAF8F4;
+  --white:#FFFFFF;
+  --ink:#1A2A2E;
+  --ink-soft:#3D5458;
+  --muted:#6B8588;
+  --border-subtle:#D5E4E4;
+  --danger:#C0392B;
+  --shadow-sm:0 1px 8px rgba(11,79,92,.06);
+  --shadow-md:0 6px 32px rgba(11,79,92,.10);
+  --shadow-lg:0 12px 48px rgba(11,79,92,.14);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 10%,rgba(42,143,143,.04),transparent),
+    radial-gradient(ellipse 40% 40% at 85% 80%,rgba(201,136,58,.04),transparent);
+}
+
+/* noise texture overlay */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+}
+
+/* ═══════════════════════════════════════════
+   TOP BAR
+   ═══════════════════════════════════════════ */
+.top-bar{
+  background:var(--teal-deep);
+  padding:0 40px;
+  min-height:38px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:6px;
+  position:relative;
+}
+.top-bar::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(58,189,189,.08),transparent 60%);
+  pointer-events:none;
+}
+.top-bar a{
+  color:rgba(255,255,255,.7);font-size:11px;text-decoration:none;
+  letter-spacing:.03em;transition:color .25s;position:relative;z-index:1;
+}
+.top-bar a:hover{color:#fff}
+.top-bar-left{display:flex;align-items:center;gap:20px}
+.top-bar-sep{width:1px;height:14px;background:rgba(255,255,255,.15)}
+.top-bar-right{display:flex;align-items:center;gap:12px}
+.acceso-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  color:#fff!important;padding:3px 14px;border-radius:6px;font-size:11px;
+  text-decoration:none;transition:background .25s;
+}
+.acceso-btn:hover{background:rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+.main-header{
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border-subtle);
+  box-shadow:var(--shadow-sm);
+  position:sticky;top:0;z-index:100;
+  transition:box-shadow .3s;
+}
+.main-header.scrolled{box-shadow:var(--shadow-md)}
+.header-inner{
+  max-width:1280px;margin:0 auto;padding:0 40px;
+  height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.header-logo{display:flex;align-items:center;gap:16px;text-decoration:none}
+.logo-gov-img{height:46px;width:auto}
+.logo-sep{width:1px;height:34px;background:var(--border-subtle)}
+.logo-sec .nombre{font-size:13px;font-weight:600;color:var(--teal-deep);line-height:1.3;display:block}
+.logo-sec .dependencia{font-size:10px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:2px;display:block}
+.header-nav{display:flex;align-items:center;gap:2px;list-style:none}
+.header-nav a{
+  padding:6px 14px;font-size:13px;font-weight:500;color:var(--ink-soft);
+  text-decoration:none;border-radius:8px;transition:background .25s,color .25s;
+}
+.header-nav a:hover{background:var(--teal-whisper);color:var(--teal-deep)}
+.header-nav .nav-cta{
+  background:var(--teal-mid);color:#fff!important;padding:7px 20px;
+  font-weight:600;
+}
+.header-nav .nav-cta:hover{background:var(--teal-light)!important}
+
+/* ═══════════════════════════════════════════
+   BREADCRUMB
+   ═══════════════════════════════════════════ */
+.breadcrumb{
+  background:var(--white);border-bottom:1px solid var(--border-subtle);
+  padding:10px 40px;
+}
+.breadcrumb-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--muted);flex-wrap:wrap;
+}
+.breadcrumb-inner a{color:var(--teal-mid);text-decoration:none}
+.breadcrumb-inner a:hover{text-decoration:underline}
+.bc-sep{color:var(--border-subtle)}
+.breadcrumb-inner span{font-weight:500;color:var(--ink-soft)}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{
+  background:linear-gradient(145deg,var(--teal-deep) 0%,#0E6B6B 50%,var(--teal-mid) 100%);
+  padding:0;position:relative;overflow:hidden;min-height:480px;display:flex;
+}
+/* gradient mesh */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 80%,rgba(58,189,189,.25),transparent 50%),
+    radial-gradient(circle at 75% 30%,rgba(201,136,58,.12),transparent 45%),
+    radial-gradient(circle at 50% 50%,rgba(77,216,216,.08),transparent 60%);
+  z-index:0;
+}
+/* geometric grid lines */
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  z-index:0;
+}
+.hero-inner{
+  max-width:1280px;margin:0 auto;padding:72px 40px;
+  display:grid;grid-template-columns:1fr 400px;gap:64px;
+  align-items:center;width:100%;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  padding:5px 16px;border-radius:24px;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);margin-bottom:22px;
+}
+.hero-badge .dot{width:7px;height:7px;background:var(--teal-glow);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(32px,4.2vw,52px);font-weight:700;color:#fff;
+  line-height:1.12;margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;color:var(--teal-pale)}
+.hero-desc{
+  font-size:15px;color:rgba(255,255,255,.8);line-height:1.8;
+  max-width:540px;margin-bottom:36px;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-hero-prim{
+  background:#fff;color:var(--teal-deep);
+  padding:13px 28px;border-radius:10px;font-size:14px;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:transform .3s var(--ease-out),box-shadow .3s;
+  box-shadow:0 4px 20px rgba(0,0,0,.18);
+}
+.btn-hero-prim:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.22)}
+.btn-hero-sec{
+  background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.35);
+  color:#fff;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:500;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:background .25s;
+}
+.btn-hero-sec:hover{background:rgba(255,255,255,.18)}
+
+/* hero right card */
+.hero-right-card{
+  background:rgba(255,255,255,.08);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);
+  padding:34px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.hero-logo-circle{
+  width:110px;height:110px;background:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 36px rgba(0,0,0,.16);
+}
+.hero-logo-circle img{width:80px;height:auto}
+.hero-card-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:#fff;text-align:center;line-height:1.35}
+.hero-card-sub{font-size:12px;color:rgba(255,255,255,.6);text-align:center}
+.hero-card-divider{width:100%;height:1px;background:rgba(255,255,255,.12)}
+.hero-card-row{display:flex;align-items:center;gap:10px;width:100%}
+.hero-card-icon{
+  width:32px;height:32px;background:rgba(58,189,189,.2);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+.hero-card-info .label{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.hero-card-info .val{font-size:13px;color:#fff}
+.hero-card-info .val a{color:var(--teal-pale);text-decoration:none}
+.hero-card-info .val a:hover{text-decoration:underline}
+
+/* ═══════════════════════════════════════════
+   ALERT BAR
+   ═══════════════════════════════════════════ */
+.alert-bar{
+  background:var(--danger);
+  padding:14px 40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  position:relative;
+}
+.alert-bar::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.04),transparent 50%);
+  pointer-events:none;
+}
+.alert-label{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);white-space:nowrap;
+  display:flex;align-items:center;gap:6px;position:relative;z-index:1;
+}
+.alert-sep{width:1px;height:24px;background:rgba(255,255,255,.2);flex-shrink:0}
+.alert-nums{display:flex;gap:12px;flex-wrap:wrap}
+.emg-link{
+  display:flex;align-items:center;gap:8px;text-decoration:none;
+  transition:opacity .25s;position:relative;z-index:1;
+}
+.emg-link:hover{opacity:.8}
+.emg-badge{
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);
+  border-radius:6px;padding:3px 10px;font-size:13px;font-weight:700;
+  color:#fff;min-width:42px;text-align:center;
+}
+.emg-name{font-size:12px;color:rgba(255,255,255,.85)}
+
+/* ═══════════════════════════════════════════
+   DATA STRIP
+   ═══════════════════════════════════════════ */
+.data-strip{background:var(--white);border-bottom:1px solid var(--border-subtle)}
+.data-strip-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-subtle);
+}
+.data-item{
+  background:var(--white);padding:22px 28px;
+  display:flex;align-items:center;gap:16px;
+  transition:background .25s;
+}
+.data-item:hover{background:var(--teal-whisper)}
+.data-icon{
+  width:46px;height:46px;
+  background:var(--teal-whisper);border:1.5px solid var(--teal-pale);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.data-text .label{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.data-text .val{font-size:13px;font-weight:500;color:var(--ink-soft);line-height:1.4}
+
+/* ═══════════════════════════════════════════
+   SECTIONS (common)
+   ═══════════════════════════════════════════ */
+.container{max-width:1280px;margin:0 auto;padding:0 40px}
+.section{padding:80px 40px}
+.section-alt{background:var(--white)}
+.section-alt2{background:var(--warm-sand)}
+.section-header{margin-bottom:52px}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-mid);margin-bottom:12px;
+}
+.section-eyebrow::before{content:'';display:block;width:24px;height:2px;background:var(--teal-light)}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(28px,3.5vw,42px);font-weight:700;
+  color:var(--teal-deep);line-height:1.15;margin-bottom:14px;
+}
+.section-sub{font-size:15px;color:var(--muted);max-width:600px;line-height:1.75}
+
+/* ═══════════════════════════════════════════
+   MISION
+   ═══════════════════════════════════════════ */
+.mision-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.mision-quote{
+  border-left:4px solid var(--teal-light);
+  padding:26px 28px;background:var(--teal-whisper);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;margin-bottom:30px;
+}
+.mision-quote p{font-family:'Fraunces',serif;font-size:17px;color:var(--teal-deep);font-style:italic;line-height:1.7}
+.mision-body p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.mision-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-tile{
+  background:var(--white);border:1.5px solid var(--border-subtle);
+  border-radius:var(--radius-md);padding:26px 22px;text-align:center;
+  transition:border-color .3s,transform .3s var(--ease-out),box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.stat-tile::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal-mid),var(--warm-amber));
+}
+.stat-tile:hover{border-color:var(--teal-pale);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.stat-num{font-family:'Fraunces',serif;font-size:44px;font-weight:700;color:var(--teal-mid);line-height:1;margin-bottom:6px}
+.stat-lbl{font-size:12px;color:var(--muted);line-height:1.4}
+
+/* ═══════════════════════════════════════════
+   SERVICIOS
+   ═══════════════════════════════════════════ */
+.servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.servicio-card{
+  background:var(--white);border:1.5px solid var(--border-subtle);
+  border-radius:var(--radius-lg);padding:34px 26px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .35s var(--ease-out),box-shadow .35s,border-color .3s;
+  position:relative;overflow:hidden;
+}
+.servicio-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal-mid),var(--warm-amber));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out);
+}
+.servicio-card:hover::after{transform:scaleX(1)}
+.servicio-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--teal-pale)}
+.sv-icon{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,var(--teal-whisper),var(--bone));
+  border:1.5px solid var(--teal-pale);border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  transition:background .3s,transform .3s;
+}
+.servicio-card:hover .sv-icon{background:var(--teal-pale);transform:scale(1.05)}
+.sv-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--teal-deep)}
+.sv-body{font-size:13px;color:var(--muted);line-height:1.75;flex:1}
+.sv-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--teal-mid);text-decoration:none;transition:gap .25s}
+.sv-link:hover{gap:10px}
+
+/* ═══════════════════════════════════════════
+   ACCORDION (Funciones)
+   ═══════════════════════════════════════════ */
+.accordion{max-width:880px}
+.acc-item{border:1.5px solid var(--border-subtle);border-radius:var(--radius-md);margin-bottom:12px;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.acc-item.open{border-color:var(--teal-glow);box-shadow:0 4px 24px rgba(42,175,175,.08)}
+.acc-trigger{
+  width:100%;background:var(--white);border:none;cursor:pointer;
+  display:flex;align-items:center;gap:18px;padding:20px 22px;text-align:left;
+  transition:background .25s;
+}
+.acc-trigger:hover{background:var(--teal-whisper)}
+.acc-item.open .acc-trigger{background:var(--teal-whisper)}
+.acc-num{
+  min-width:34px;height:34px;
+  background:var(--teal-whisper);border:1.5px solid var(--teal-pale);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--teal-mid);flex-shrink:0;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.acc-item.open .acc-num{background:var(--teal-mid);color:#fff;border-color:var(--teal-mid)}
+.acc-label{flex:1;font-size:14px;font-weight:500;color:var(--ink-soft)}
+.acc-chevron{
+  width:30px;height:30px;
+  border:1.5px solid var(--border-subtle);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:11px;flex-shrink:0;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s;
+}
+.acc-item.open .acc-chevron{transform:rotate(180deg);background:var(--teal-mid);border-color:var(--teal-mid);color:#fff}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.22,1,.36,1)}
+.acc-item.open .acc-body{max-height:400px}
+.acc-body-inner{padding:16px 22px 24px 72px;font-size:14px;color:var(--muted);line-height:1.8;border-top:1px solid var(--border-subtle)}
+
+/* ═══════════════════════════════════════════
+   ORGANISMOS
+   ═══════════════════════════════════════════ */
+.org-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.org-card{
+  background:var(--white);border:1.5px solid var(--border-subtle);
+  border-radius:var(--radius-lg);padding:38px 32px;text-decoration:none;color:inherit;
+  display:flex;gap:24px;align-items:flex-start;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;
+  position:relative;overflow:hidden;
+}
+.org-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(to bottom,var(--teal-glow),var(--warm-amber));
+  transform:scaleY(0);transform-origin:bottom;transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.org-card:hover::before{transform:scaleY(1)}
+.org-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--teal-pale)}
+.org-icon-wrap{
+  width:62px;height:62px;
+  background:linear-gradient(135deg,var(--teal-whisper),var(--bone));
+  border:1.5px solid var(--teal-pale);border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;
+}
+.org-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-light);margin-bottom:6px}
+.org-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--teal-deep);line-height:1.3;margin-bottom:10px}
+.org-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.org-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--teal-mid)}
+
+/* ═══════════════════════════════════════════
+   NOTICIAS
+   ═══════════════════════════════════════════ */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.news-card{
+  background:var(--white);border:1.5px solid var(--border-subtle);border-radius:var(--radius-lg);
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+  text-decoration:none;color:inherit;display:block;
+}
+.news-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.news-thumb{height:170px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden}
+.news-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.04));pointer-events:none}
+.news-thumb.n1{background:linear-gradient(135deg,#d4f1f1,#a8e0e0)}
+.news-thumb.n2{background:linear-gradient(135deg,#f5e6d4,#edd5b8)}
+.news-thumb.n3{background:linear-gradient(135deg,#f7d4d0,#f0b8b0)}
+.news-date{font-size:11px;font-weight:600;color:var(--teal-light);padding:16px 18px 4px;letter-spacing:.04em}
+.news-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink-soft);padding:0 18px 10px;line-height:1.4}
+.news-body{font-size:13px;color:var(--muted);padding:0 18px 18px;line-height:1.7}
+
+/* ═══════════════════════════════════════════
+   CONTACTO
+   ═══════════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:360px 1fr;gap:64px;align-items:start}
+.contact-info-card{
+  background:var(--teal-deep);border-radius:var(--radius-lg);
+  padding:42px 34px;color:#fff;position:relative;overflow:hidden;
+}
+.contact-info-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 80%,rgba(58,189,189,.15),transparent 60%);
+  pointer-events:none;
+}
+.ci-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;position:relative}
+.ci-sub{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:32px;line-height:1.6;position:relative}
+.ci-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;position:relative}
+.ci-icon{width:40px;height:40px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ci-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2px}
+.ci-v{font-size:14px;color:#fff;line-height:1.45}
+.ci-v a{color:var(--teal-pale);text-decoration:none}
+.ci-v a:hover{text-decoration:underline}
+.ci-horario{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;padding:16px 18px;margin-top:8px;
+  display:flex;gap:12px;align-items:center;position:relative;
+}
+.ci-horario span{font-size:13px;color:rgba(255,255,255,.8);line-height:1.5}
+
+/* form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.form-input,.form-select,.form-textarea{
+  font-family:inherit;font-size:14px;
+  border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);
+  padding:12px 14px;color:var(--ink-soft);background:var(--white);
+  outline:none;transition:border-color .25s,box-shadow .25s;resize:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--teal-light);box-shadow:0 0 0 3px rgba(42,143,143,.1);
+}
+.form-textarea{min-height:120px}
+.form-submit{
+  background:var(--teal-mid);color:#fff;border:none;cursor:pointer;
+  padding:13px 32px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;
+  font-family:inherit;display:inline-flex;align-items:center;gap:8px;
+  transition:background .25s,transform .25s var(--ease-out),box-shadow .25s;
+  box-shadow:0 4px 18px rgba(42,143,143,.25);
+}
+.form-submit:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(42,143,143,.3)}
+.form-submit[disabled]{opacity:.65;cursor:wait;transform:none!important}
+.toast-ok{
+  display:none;margin-top:14px;
+  background:var(--teal-whisper);border:1.5px solid var(--teal-pale);
+  color:var(--teal-deep);border-radius:var(--radius-sm);
+  padding:12px 18px;font-size:14px;font-weight:500;
+  align-items:center;gap:10px;
+}
+.toast-ok.show{display:flex;animation:fadeUp .4s var(--ease-out) forwards}
+.toast-error{
+  display:none;margin-top:14px;
+  background:#fff1f0;border:1.5px solid #f5b7b1;
+  color:#922b21;border-radius:var(--radius-sm);
+  padding:12px 18px;font-size:14px;font-weight:500;
+  align-items:center;gap:10px;
+}
+.toast-error.show{display:flex;animation:fadeUp .4s var(--ease-out) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer-top{background:var(--teal-deep);padding:56px 40px 40px;color:rgba(255,255,255,.7);position:relative;overflow:hidden}
+.footer-top::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 80% 20%,rgba(58,189,189,.08),transparent);
+  pointer-events:none;
+}
+.footer-top-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:280px 1fr 1fr;gap:48px;position:relative}
+.ft-logo{height:44px;width:auto;margin-bottom:16px;opacity:.9}
+.ft-brand p{font-size:13px;line-height:1.7;color:rgba(255,255,255,.55);margin-top:8px}
+.ft-col-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:16px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-links a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .25s}
+.ft-links a:hover{color:#fff}
+.footer-bottom{
+  background:#072E34;padding:16px 40px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  font-size:12px;color:rgba(255,255,255,.35);
+}
+.footer-bottom a{color:rgba(255,255,255,.35);text-decoration:none}
+.footer-bottom a:hover{color:rgba(255,255,255,.6)}
+
+/* ═══════════════════════════════════════════
+   FLOATING SOCIAL MEDIA WIDGETS
+   ═══════════════════════════════════════════ */
+.social-float{
+  position:fixed;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:1000;
+}
+.social-float a{
+  width:50px;height:50px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;color:#fff;font-size:22px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  transition:transform .3s var(--ease-out),box-shadow .3s;
+  position:relative;
+}
+.social-float a:hover{transform:scale(1.12);box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.social-float a .tooltip{
+  position:absolute;right:60px;top:50%;transform:translateY(-50%);
+  background:var(--ink);color:#fff;font-size:11px;font-weight:600;
+  padding:4px 10px;border-radius:6px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  transform:translateY(-50%) translateX(8px);
+}
+.social-float a:hover .tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
+.social-float a .tooltip::after{
+  content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);
+  border:5px solid transparent;border-left-color:var(--ink);
+}
+.sf-facebook{background:#1877F2}
+.sf-instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.sf-twitter{background:#000}
+.sf-youtube{background:#FF0000}
+.sf-tiktok{background:#010101}
+
+/* ═══════════════════════════════════════════
+   ARGENTINE FLAG GRADIENT ON WHITE SECTIONS
+   ═══════════════════════════════════════════ */
+.section-alt::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 80px,
+      rgba(117,173,215,.025) 80px,
+      rgba(117,173,215,.025) 82px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 80px,
+      rgba(117,173,215,.02) 80px,
+      rgba(117,173,215,.02) 82px
+    ),
+    linear-gradient(180deg,
+      rgba(117,173,215,.06) 0%,
+      rgba(255,255,255,.02) 15%,
+      rgba(255,255,255,.01) 50%,
+      rgba(255,255,255,.02) 85%,
+      rgba(117,173,215,.06) 100%
+    );
+  opacity:.7;
+}
+.section-alt,.section-alt2{position:relative}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.reveal-d4{transition-delay:.32s}
+
+/* ═══════════════════════════════════════════
+   PAGE-LOAD STAGGER
+   ═══════════════════════════════════════════ */
+.hero-inner > *{opacity:0;transform:translateY(24px);animation:staggerIn .7s var(--ease-out) forwards}
+.hero-inner > *:nth-child(1){animation-delay:.1s}
+.hero-inner > *:nth-child(2){animation-delay:.25s}
+@keyframes staggerIn{to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr}
+  .mision-grid,.contact-grid{grid-template-columns:1fr}
+  .servicios-grid{grid-template-columns:1fr 1fr}
+  .footer-top-inner{grid-template-columns:1fr 1fr}
+  .ft-brand{grid-column:1/-1}
+}
+@media(max-width:768px){
+  .top-bar{padding:8px 16px;height:auto}
+  .breadcrumb{padding:10px 16px}
+  .header-inner{padding:0 16px}
+  .header-nav{display:none}
+  .section{padding:52px 16px}
+  .container{padding:0 16px}
+  .data-strip-inner{grid-template-columns:1fr 1fr}
+  .alert-bar{padding:14px 16px}
+  .servicios-grid,.news-grid,.org-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .footer-top{padding:40px 16px 24px}
+  .footer-top-inner{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{padding:14px 16px;flex-direction:column;text-align:center}
+  .mision-stats{grid-template-columns:1fr 1fr}
+  .hero-inner{gap:32px;padding:48px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="https://www.tucuman.gob.ar">Portal Oficial Tucumán</a>
+    <div class="top-bar-sep"></div>
+    <a href="http://www.guiadetramites.tucuman.gov.ar">Guía de Trámites</a>
+    <div class="top-bar-sep"></div>
+    <a href="https://www.tucuman.gob.ar/noticias">Noticias</a>
+    <div class="top-bar-sep"></div>
+    <a href="https://www.tucuman.gob.ar/organismos">Organismos</a>
+  </div>
+  <div class="top-bar-right">
+    <a href="http://empleadopublico.tucuman.gov.ar/" class="acceso-btn">👤 Empleado Público</a>
+    <a href="http://boletin.tucuman.gov.ar/" class="acceso-btn">📋 Boletín Oficial</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="main-header" id="mainHeader">
+  <div class="header-inner">
+    <a class="header-logo" href="https://www.tucuman.gob.ar">
+      <img class="logo-gov-img"
+        src="https://dyb3lop9kdviu.cloudfront.net/assets/logo-c502e96c9bb7d7b8dd004655cd9c9b9de802fa40cc6d2ed56d74fc1a2c9831d8.svg"
+        alt="Gobierno de Tucumán"
+        onerror="this.outerHTML='<div style=&quot;width:48px;height:48px;background:var(--teal-mid);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:700;font-family:serif&quot;>T</div>'">
+      <div class="logo-sep"></div>
+      <div class="logo-sec">
+        <span class="nombre">Secretaría de Políticas Integrales sobre Adicciones</span>
+        <span class="dependencia">Ministerio de Desarrollo Social · Tucumán</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="#mision">Misión</a></li>
+        <li><a href="#funciones">Funciones</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#organismos">Organismos</a></li>
+        <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="https://www.tucuman.gob.ar">Inicio</a>
+    <span class="bc-sep">›</span>
+    <a href="https://www.tucuman.gob.ar/organismos">Organismos</a>
+    <span class="bc-sep">›</span>
+    <a href="https://www.tucuman.gob.ar/organismos/ministerio-de-desarrollo-social">Min. Desarrollo Social</a>
+    <span class="bc-sep">›</span>
+    <span>Secretaría de Políticas Integrales sobre Adicciones</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="dot"></span>Gobierno de Tucumán · Organismo Oficial</div>
+      <h1>Secretaría de <em>Políticas Integrales</em><br>sobre Adicciones</h1>
+      <p class="hero-desc">Planificamos, coordinamos y evaluamos acciones integrales para la prevención y asistencia del consumo problemático de sustancias en toda la Provincia de Tucumán.</p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-hero-prim">Solicitar ayuda →</a>
+        <a href="#servicios" class="btn-hero-sec">Ver servicios disponibles</a>
+      </div>
+    </div>
+    <div class="hero-right-card">
+      <div class="hero-logo-circle">
+        <img src="https://dyb3lop9kdviu.cloudfront.net/assets/logo-c502e96c9bb7d7b8dd004655cd9c9b9de802fa40cc6d2ed56d74fc1a2c9831d8.svg"
+          alt="Escudo Tucumán" style="width:80px;height:auto"
+          onerror="this.outerHTML='<div style=&quot;font-size:44px&quot;>🏛️</div>'">
+      </div>
+      <div class="hero-card-name">Secretaría de Estado de Políticas Integrales sobre Adicciones</div>
+      <div class="hero-card-sub">Ministerio de Desarrollo Social · Tucumán</div>
+      <div class="hero-card-divider"></div>
+      <div class="hero-card-row">
+        <div class="hero-card-icon">👤</div>
+        <div class="hero-card-info"><div class="label">A cargo de</div><div class="val">Haurigot Posse, Lucas</div></div>
+      </div>
+      <div class="hero-card-row">
+        <div class="hero-card-icon">📍</div>
+        <div class="hero-card-info"><div class="label">Dirección</div><div class="val">Crisóstomo Álvarez 321, San Miguel de Tucumán</div></div>
+      </div>
+      <div class="hero-card-row">
+        <div class="hero-card-icon">📞</div>
+        <div class="hero-card-info"><div class="label">Teléfono</div><div class="val"><a href="tel:03814523201">(0381) 452-3201</a> · <a href="tel:03814523200">452-3200</a></div></div>
+      </div>
+      <div class="hero-card-row">
+        <div class="hero-card-icon">✉️</div>
+        <div class="hero-card-info"><div class="label">Email</div><div class="val"><a href="mailto:adicciones@tucuman.gov.ar">adicciones@tucuman.gov.ar</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY NUMBERS -->
+<div class="alert-bar">
+  <div class="alert-label">⚠️ Líneas de ayuda</div>
+  <div class="alert-sep"></div>
+  <div class="alert-nums">
+    <a href="tel:141" class="emg-link"><span class="emg-badge">141</span><span class="emg-name">Línea de Orientación sobre Drogas</span></a>
+    <a href="tel:0800-345-6464" class="emg-link"><span class="emg-badge">0800-345-6464</span><span class="emg-name">SEDRONAR · Atención gratuita</span></a>
+    <a href="tel:135" class="emg-link"><span class="emg-badge">135</span><span class="emg-name">Atención de Crisis</span></a>
+  </div>
+</div>
+
+<!-- DATA STRIP -->
+<div class="data-strip">
+  <div class="data-strip-inner">
+    <div class="data-item">
+      <div class="data-icon">🏥</div>
+      <div class="data-text"><div class="label">Centros de atención</div><div class="val">12 dispositivos en toda la provincia</div></div>
+    </div>
+    <div class="data-item">
+      <div class="data-icon">👥</div>
+      <div class="data-text"><div class="label">Consultas anuales</div><div class="val">+3.200 personas asistidas</div></div>
+    </div>
+    <div class="data-item">
+      <div class="data-icon">📋</div>
+      <div class="data-text"><div class="label">Programas activos</div><div class="val">8 programas de prevención</div></div>
+    </div>
+    <div class="data-item">
+      <div class="data-icon">🤝</div>
+      <div class="data-text"><div class="label">Red institucional</div><div class="val">24 organismos articulados</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MISIÓN -->
+<section class="section" id="mision">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Nuestra Misión</div>
+      <h2 class="section-title">Compromiso con la salud pública</h2>
+      <p class="section-sub">Trabajamos por la prevención, asistencia e inclusión de personas afectadas por el consumo problemático de sustancias.</p>
+    </div>
+    <div class="mision-grid">
+      <div class="reveal reveal-d1">
+        <div class="mision-quote">
+          <p>"Acompañar a las personas y sus familias en procesos de recuperación, garantizando un abordaje integral, interdisciplinario y con perspectiva de derechos humanos."</p>
+        </div>
+        <div class="mision-body">
+          <p>La Secretaría de Políticas Integrales sobre Adicciones es el organismo del Estado provincial encargado de planificar, coordinar y ejecutar las políticas públicas en materia de prevención y asistencia del consumo problemático de sustancias legales e ilegales.</p>
+          <p>Nuestro enfoque prioriza la articulación interinstitucional, la formación de recursos humanos y la integración comunitaria para generar redes de contención efectivas en todo el territorio provincial.</p>
+        </div>
+      </div>
+      <div class="mision-stats reveal reveal-d2">
+        <div class="stat-tile"><div class="stat-num">12</div><div class="stat-lbl">Centros de atención en Tucumán</div></div>
+        <div class="stat-tile"><div class="stat-num">3.200+</div><div class="stat-lbl">Personas asistidas al año</div></div>
+        <div class="stat-tile"><div class="stat-num">8</div><div class="stat-lbl">Programas de prevención activos</div></div>
+        <div class="stat-tile"><div class="stat-num">24</div><div class="stat-lbl">Organismos de la red provincial</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES -->
+<section class="section section-alt" id="funciones">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Funciones</div>
+      <h2 class="section-title">¿Qué hacemos?</h2>
+      <p class="section-sub">Conocé las principales funciones de la Secretaría en materia de políticas públicas sobre adicciones.</p>
+    </div>
+    <div class="accordion reveal">
+      <div class="acc-item">
+        <button class="acc-trigger"><span class="acc-num">01</span><span class="acc-label">Prevención del consumo problemático</span><span class="acc-chevron">▾</span></button>
+        <div class="acc-body"><div class="acc-body-inner">Diseñar e implementar programas de prevención primaria dirigidos a niños, adolescentes y jóvenes en ámbitos educativos, comunitarios y deportivos de toda la provincia, con estrategias basadas en evidencia científica.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span class="acc-num">02</span><span class="acc-label">Asistencia y tratamiento</span><span class="acc-chevron">▾</span></button>
+        <div class="acc-body"><div class="acc-body-inner">Garantizar el acceso a tratamientos gratuitos y de calidad para personas con consumo problemático de sustancias, a través de dispositivos especializados y equipos interdisciplinarios de salud mental.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span class="acc-num">03</span><span class="acc-label">Capacitación y formación</span><span class="acc-chevron">▾</span></button>
+        <div class="acc-body"><div class="acc-body-inner">Formar y actualizar competencias de profesionales, operadores comunitarios y referentes institucionales en las temáticas de adicciones, reducción de daños y perspectiva de derechos humanos.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span class="acc-num">04</span><span class="acc-label">Investigación y estadísticas</span><span class="acc-chevron">▾</span></button>
+        <div class="acc-body"><div class="acc-body-inner">Generar información estratégica, indicadores y estudios epidemiológicos para el monitoreo de la situación provincial en materia de sustancias y conductas adictivas.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger"><span class="acc-num">05</span><span class="acc-label">Articulación interinstitucional</span><span class="acc-chevron">▾</span></button>
+        <div class="acc-body"><div class="acc-body-inner">Coordinar acciones con organismos públicos, organizaciones de la sociedad civil y comunidades para fortalecer la red de atención integral en adicciones en el territorio provincial.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Servicios</div>
+      <h2 class="section-title">Servicios disponibles</h2>
+      <p class="section-sub">Herramientas y recursos para la comunidad, profesionales e instituciones.</p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card reveal reveal-d1">
+        <div class="sv-icon">📞</div>
+        <div class="sv-title">Línea de orientación</div>
+        <div class="sv-body">Atención telefónica gratuita las 24 horas para consultas sobre adicciones, tratamiento y derivaciones.</div>
+        <a href="tel:141" class="sv-link">Llamar al 141 →</a>
+      </div>
+      <div class="servicio-card reveal reveal-d2">
+        <div class="sv-icon">🏥</div>
+        <div class="sv-title">Centros de atención</div>
+        <div class="sv-body">Dispositivos especializados distribuidos en todo el territorio provincial con equipos interdisciplinarios.</div>
+        <a href="#contacto" class="sv-link">Ver ubicaciones →</a>
+      </div>
+      <div class="servicio-card reveal reveal-d3">
+        <div class="sv-icon">📋</div>
+        <div class="sv-title">Programas de prevención</div>
+        <div class="sv-body">Talleres, charlas y materiales educativos para escuelas, clubes y organizaciones comunitarias.</div>
+        <a href="#contacto" class="sv-link">Solicitar programa →</a>
+      </div>
+      <div class="servicio-card reveal reveal-d1">
+        <div class="sv-icon">🎓</div>
+        <div class="sv-title">Capacitaciones</div>
+        <div class="sv-body">Formación para profesionales de la salud, educación y fuerzas de seguridad en adicciones.</div>
+        <a href="#contacto" class="sv-link">Más información →</a>
+      </div>
+      <div class="servicio-card reveal reveal-d2">
+        <div class="sv-icon">👨‍👩‍👧‍👦</div>
+        <div class="sv-title">Apoyo familiar</div>
+        <div class="sv-body">Acompañamiento y orientación para familias de personas en proceso de tratamiento y recuperación.</div>
+        <a href="#contacto" class="sv-link">Contactar →</a>
+      </div>
+      <div class="servicio-card reveal reveal-d3">
+        <div class="sv-icon">📊</div>
+        <div class="sv-title">Datos y estadísticas</div>
+        <div class="sv-body">Información epidemiológica, informes anuales y datos abiertos sobre la problemática en Tucumán.</div>
+        <a href="#" class="sv-link">Ver datos →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANISMOS -->
+<section class="section section-alt" id="organismos">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Red institucional</div>
+      <h2 class="section-title">Organismos vinculados</h2>
+      <p class="section-sub">Instituciones y organizaciones que forman parte de la red de atención integral en adicciones.</p>
+    </div>
+    <div class="org-grid">
+      <a href="https://www.argentina.gob.ar/sedronar" class="org-card reveal reveal-d1" target="_blank">
+        <div class="org-icon-wrap">🏛️</div>
+        <div>
+          <div class="org-tag">Nacional</div>
+          <div class="org-name">SEDRONAR</div>
+          <div class="org-desc">Secretaría de Políticas Integrales sobre Drogas de la Nación Argentina. Organismo rector de las políticas públicas en materia de drogas.</div>
+          <div class="org-cta">Visitar sitio →</div>
+        </div>
+      </a>
+      <a href="https://www.tucuman.gob.ar/salud" class="org-card reveal reveal-d2" target="_blank">
+        <div class="org-icon-wrap">🏥</div>
+        <div>
+          <div class="org-tag">Provincial</div>
+          <div class="org-name">Ministerio de Salud Pública</div>
+          <div class="org-desc">Organismo provincial encargado de la política sanitaria, incluyendo la atención en salud mental y adicciones en la red pública.</div>
+          <div class="org-cta">Visitar sitio →</div>
+        </div>
+      </a>
+      <a href="https://www.tucuman.gob.ar/desarrollo-social" class="org-card reveal reveal-d3" target="_blank">
+        <div class="org-icon-wrap">🤝</div>
+        <div>
+          <div class="org-tag">Provincial</div>
+          <div class="org-name">Ministerio de Desarrollo Social</div>
+          <div class="org-desc">Ministerio del cual depende la Secretaría, enfocado en la inclusión social y la asistencia a grupos vulnerables.</div>
+          <div class="org-cta">Visitar sitio →</div>
+        </div>
+      </a>
+      <a href="https://www.tucuman.gob.ar/educacion" class="org-card reveal reveal-d4" target="_blank">
+        <div class="org-icon-wrap">🎓</div>
+        <div>
+          <div class="org-tag">Provincial</div>
+          <div class="org-name">Ministerio de Educación</div>
+          <div class="org-desc">Ministerio encargado de la política educativa provincial, incluyendo programas de prevención en adicciones en escuelas.</div>
+          <div class="org-cta">Visitar sitio →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICIAS -->
+<section class="section section-alt2" id="noticias">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Novedades</div>
+      <h2 class="section-title">Últimas noticias</h2>
+      <p class="section-sub">Actividades, campañas y novedades de la Secretaría.</p>
+    </div>
+    <div class="news-grid">
+      <a href="https://www.tucuman.gob.ar/noticias" class="news-card reveal reveal-d1" target="_blank">
+        <div class="news-thumb n1">🎗️</div>
+        <div class="news-date">15 de Marzo, 2025</div>
+        <div class="news-title">Campaña de prevención en escuelas secundarias</div>
+        <div class="news-body">La Secretaría lanzó un nuevo ciclo de charlas preventivas en establecimientos educativos de la provincia.</div>
+      </a>
+      <a href="https://www.tucuman.gob.ar/noticias" class="news-card reveal reveal-d2" target="_blank">
+        <div class="news-thumb n2">📊</div>
+        <div class="news-date">28 de Febrero, 2025</div>
+        <div class="news-title">Presentación del informe anual 2024</div>
+        <div class="news-body">Se publicaron los datos y estadísticas del abordaje en adicciones durante el año anterior en Tucumán.</div>
+      </a>
+      <a href="https://www.tucuman.gob.ar/noticias" class="news-card reveal reveal-d3" target="_blank">
+        <div class="news-thumb n3">🎓</div>
+        <div class="news-date">10 de Febrero, 2025</div>
+        <div class="news-title">Jornada de capacitación para profesionales</div>
+        <div class="news-body">Se realizó la jornada provincial de actualización en abordaje de adicciones con más de 200 participantes.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Contacto</div>
+      <h2 class="section-title">Comunicate con nosotros</h2>
+      <p class="section-sub">Estamos para ayudarte. Envianos tu consulta o solicitud y te responderemos a la brevedad.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-card reveal reveal-d1">
+        <div class="ci-title">Información de contacto</div>
+        <div class="ci-sub">Podés comunicarte con nosotros por los siguientes medios o visitarnos en nuestra sede.</div>
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-lbl">Dirección</div><div class="ci-v">Crisóstomo Álvarez 321<br>San Miguel de Tucumán</div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">📞</div>
+          <div><div class="ci-lbl">Teléfono</div><div class="ci-v"><a href="tel:03814523201">(0381) 452-3201</a><br><a href="tel:03814523200">452-3200</a></div></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-lbl">Email</div><div class="ci-v"><a href="mailto:adicciones@tucuman.gov.ar">adicciones@tucuman.gov.ar</a></div></div>
+        </div>
+        <div class="ci-horario">🕐 <span>Lunes a Viernes<br>08:00 – 14:00 hs</span></div>
+      </div>
+      <form class="reveal reveal-d2" id="contactForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-input" type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="apellido">Apellido</label>
+            <input class="form-input" type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" required placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="telefono">Teléfono</label>
+            <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="(0381) XXX-XXXX">
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="asunto">Asunto</label>
+            <select class="form-select" id="asunto" name="asunto" required>
+              <option value="">Seleccioná un motivo</option>
+              <option value="consulta">Consulta general</option>
+              <option value="ayuda">Solicitar ayuda</option>
+              <option value="programa">Solicitar programa de prevención</option>
+              <option value="capacitacion">Capacitación</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="mensaje">Mensaje</label>
+            <textarea class="form-textarea" id="mensaje" name="mensaje" required placeholder="Escribí tu mensaje..."></textarea>
+          </div>
+        </div>
+        <button class="form-submit" type="submit" id="submitBtn">Enviar mensaje →</button>
+        <div class="toast-ok" id="toastOk">✅ Mensaje enviado correctamente. Te responderemos pronto.</div>
+        <div class="toast-error" id="toastError">❌ Hubo un error al enviar el mensaje. Intentá nuevamente.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-top">
+  <div class="footer-top-inner">
+    <div class="ft-brand">
+      <img class="ft-logo"
+        src="https://dyb3lop9kdviu.cloudfront.net/assets/logo-c502e96c9bb7d7b8dd004655cd9c9b9de802fa40cc6d2ed56d74fc1a2c9831d8.svg"
+        alt="Gobierno de Tucumán"
+        onerror="this.outerHTML='<div style=&quot;font-size:32px;color:#fff;margin-bottom:8px&quot;>🏛️</div>'">
+      <p>Secretaría de Políticas Integrales sobre Adicciones<br>Ministerio de Desarrollo Social · Gobierno de Tucumán</p>
+    </div>
+    <div>
+      <div class="ft-col-title">Navegación</div>
+      <ul class="ft-links">
+        <li><a href="#mision">Misión</a></li>
+        <li><a href="#funciones">Funciones</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#organismos">Organismos</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-title">Enlaces útiles</div>
+      <ul class="ft-links">
+        <li><a href="https://www.tucuman.gob.ar">Portal Oficial Tucumán</a></li>
+        <li><a href="https://www.argentina.gob.ar/sedronar">SEDRONAR</a></li>
+        <li><a href="http://www.guiadetramites.tucuman.gov.ar">Guía de Trámites</a></li>
+        <li><a href="tel:141">Línea 141</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Gobierno de Tucumán · Secretaría de Políticas Integrales sobre Adicciones</span>
+  <span><a href="https://www.tucuman.gob.ar">www.tucuman.gob.ar</a></span>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+(function(){
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => io.observe(el));
+
+  // ── Header shadow on scroll
+  const header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  // ── Accordion
+  document.querySelectorAll('.acc-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.acc-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Contact form
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toastOk = document.getElementById('toastOk');
+  const toastError = document.getElementById('toastError');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    toastOk.classList.remove('show');
+    toastError.classList.remove('show');
+
+    const data = {};
+    new FormData(form).forEach((v,k) => data[k] = v);
+
+    try {
+      const apiBase = document.querySelector('meta[name="api-base-url"]')?.content || 'http://localhost:4000';
+      const res = await fetch(apiBase + '/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if(res.ok){
+        toastOk.classList.add('show');
+        form.reset();
+      } else { throw new Error('Server error'); }
+    } catch(err){
+      toastError.classList.add('show');
+    }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar mensaje →';
+  });
+})();
+</script>
+
+<!-- FLOATING SOCIAL MEDIA WIDGETS -->
+<div class="social-float" aria-label="Redes sociales">
+  <a href="https://www.facebook.com/secadicciones" target="_blank" rel="noopener noreferrer" class="sf-facebook" aria-label="Facebook">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    <span class="tooltip">Facebook</span>
+  </a>
+  <a href="https://www.instagram.com/secadicciones" target="_blank" rel="noopener noreferrer" class="sf-instagram" aria-label="Instagram">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <span class="tooltip">Instagram</span>
+  </a>
+  <a href="https://twitter.com/secadicciones" target="_blank" rel="noopener noreferrer" class="sf-twitter" aria-label="X (Twitter)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    <span class="tooltip">X (Twitter)</span>
+  </a>
+  <a href="https://www.youtube.com/@secadicciones" target="_blank" rel="noopener noreferrer" class="sf-youtube" aria-label="YouTube">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    <span class="tooltip">YouTube</span>
+  </a>
+  <a href="https://www.tiktok.com/@secadicciones" target="_blank" rel="noopener noreferrer" class="sf-tiktok" aria-label="TikTok">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    <span class="tooltip">TikTok</span>
+  </a>
+</div>
+
+</body>
+</html>
