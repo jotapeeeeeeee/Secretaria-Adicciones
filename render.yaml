@@ -3,7 +3,7 @@ services:
     name: secretaria-adicciones-backend
     env: node
     rootDir: backend
-    region: oregon
+    region: virginia
     plan: free
     buildCommand: npm install
     startCommand: npm start
