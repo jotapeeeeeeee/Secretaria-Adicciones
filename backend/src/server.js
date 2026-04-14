@@ -7,9 +7,27 @@ import { sendContactEmail } from "./mailer.js";
 
 const app = express();
 
+// Support multiple origins (development + production)
+const allowedOrigins = [
+  config.frontendOrigin,
+  "http://127.0.0.1:5500",
+  "http://localhost:5500",
+  "https://jotapeeeeeeee.github.io"
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: config.frontendOrigin,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        console.warn(`CORS blocked origin: ${origin}`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })

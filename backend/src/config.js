@@ -1,5 +1,14 @@
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load from backend.env in project root (one level up from backend/src/)
+const envPath = path.resolve(__dirname, "..", "..", "backend.env");
+dotenv.config({ path: envPath });
+// Fallback to .env in backend/ directory
 dotenv.config();
 
 function requireEnv(name) {

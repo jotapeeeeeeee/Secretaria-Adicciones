@@ -14,15 +14,15 @@ services:
       - key: PORT
         value: 10000
       - key: FRONTEND_ORIGIN
-        sync: false
+        value: https://jotapeeeeeeee.github.io/Secretaria-Adicciones/
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
       - key: ADMIN_EMAIL
-        sync: false
+        value: troolorf@gmail.com
       - key: ADMIN_PASSWORD
-        generateValue: true
+        value: Machado1234
       - key: CONTACT_DESTINATION_EMAIL
-        sync: false
+        value: jptoftoledo1302@gmail.com
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -30,8 +30,8 @@ services:
       - key: SMTP_SECURE
         value: true
       - key: SMTP_USER
-        sync: false
+        value: jptoftoledo1302@gmail.com
       - key: SMTP_PASS
-        sync: false
+        value: crzlzquympsdajqe
       - key: MAIL_FROM
         value: "Secretaria Adicciones <no-reply@secretaria-adicciones.local>"
