@@ -18,11 +18,11 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: ADMIN_EMAIL
-        value: troolorf@gmail.com
+        sync: false
       - key: ADMIN_PASSWORD
-        value: Machado1234
+        sync: false
       - key: CONTACT_DESTINATION_EMAIL
-        value: jptoledo1302@gmail.com
+        sync: false
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -30,8 +30,8 @@ services:
       - key: SMTP_SECURE
         value: true
       - key: SMTP_USER
-        value: jptoledo1302@gmail.com
+        sync: false
       - key: SMTP_PASS
-        value: crzlzquympsdajqe
+        sync: false
       - key: MAIL_FROM
         value: "Secretaria Adicciones <no-reply@secretaria-adicciones.local>"
