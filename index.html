@@ -1126,8 +1126,15 @@ body::after{
     toastOk.classList.remove('show');
     toastError.classList.remove('show');
 
-    const data = {};
-    new FormData(form).forEach((v,k) => data[k] = v);
+    const formData = new FormData(form);
+    const data = {
+      firstName: String(formData.get('nombre') || '').trim(),
+      lastName: String(formData.get('apellido') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      phone: String(formData.get('telefono') || '').trim(),
+      reason: String(formData.get('asunto') || '').trim(),
+      message: String(formData.get('mensaje') || '').trim()
+    };
 
     try {
       const apiBase = document.querySelector('meta[name="api-base-url"]')?.content || 'http://localhost:4000';
@@ -1136,11 +1143,16 @@ body::after{
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+
       if(res.ok){
         toastOk.classList.add('show');
         form.reset();
-      } else { throw new Error('Server error'); }
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Server error');
+      }
     } catch(err){
+      console.error('Contact form error:', err);
       toastError.classList.add('show');
     }
     submitBtn.disabled = false;

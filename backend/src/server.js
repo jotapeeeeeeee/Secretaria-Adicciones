@@ -94,13 +94,13 @@ app.listen(config.port, () => {
 
 function normalizeContactPayload(body = {}) {
   return {
-    firstName: String(body.firstName || "").trim(),
-    lastName: String(body.lastName || "").trim(),
+    firstName: String(body.firstName || body.nombre || "").trim(),
+    lastName: String(body.lastName || body.apellido || "").trim(),
     dni: String(body.dni || "").trim(),
-    phone: String(body.phone || "").trim(),
+    phone: String(body.phone || body.telefono || "").trim(),
     email: String(body.email || "").trim().toLowerCase(),
-    reason: String(body.reason || "").trim(),
-    message: String(body.message || "").trim(),
+    reason: String(body.reason || body.asunto || "").trim(),
+    message: String(body.message || body.mensaje || "").trim(),
     source: "website"
   };
 }
